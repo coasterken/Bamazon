@@ -15,5 +15,33 @@ CREATE TABLE products(
   stock_quantity integer(10),
   primary key(item_id)
 );
+ALTER TABLE products
+ADD product_sales decimal(10,2);
+
+ALTER TABLE products
+ALTER COLUMN product_sales SET DEFAULT 0.00;
 
 select * from products;
+
+-- -----------------------------------------------------------------------
+
+use bamazon;
+-- Creates the table "favorite_foods" within favorite_db --
+CREATE TABLE departments(
+  department_id integer(10) not null AUTO_INCREMENT,
+  department_name VARCHAR(100) not null,
+  over_head_costs decimal(10,2),
+  primary key(department_id)
+);
+
+select * from departments;
+
+
+
+
+
+
+
+
+
+

@@ -129,8 +129,20 @@ VALUES
 650.00,
 55);
 
+update products
+set product_sales = 0.00
+where product_sales is null;
+
 select * from products;
 
+SELECT d.department_id AS 'Department ID', 
+        d.department_name AS 'Department Name', 
+        concat('$', format(d.over_head_costs, 2)) AS 'Over Head Costs',
+        concat('$', format(sum(p.product_sales), 2)) AS 'Product Sales', 
+        concat('$', format(sum(p.product_sales) - d.over_head_costs, 2)) AS 'Total Profit'         
+        FROM departments d LEFT JOIN products p
+        ON d.department_name = p.department_name
+        GROUP BY d.department_id;
 
 
 

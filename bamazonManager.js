@@ -65,6 +65,7 @@ function showManagerFront() {
                 break;
             default:
                 console.log("Something really bad occurred!");
+                connection.end();
                 break;
         }
 
@@ -106,7 +107,7 @@ function showLowInventory() {
             if (err) throw err;
 
             if (res.length === 0) {
-                console.log ("No products have inventory count lower than " + lowInventoryCount);
+                console.log("No products have inventory count lower than " + lowInventoryCount);
             } else {
                 console.log("------- Bamazon Low Inventory Products-Count <=" + lowInventoryCount + " -------------------\n");
                 console.table(res);
@@ -148,13 +149,13 @@ function addToInventory() {
 
         var query = "UPDATE products SET stock_quantity = stock_quantity + ? where item_id = ?";
         connection.query(query, [adjustQuantity, productID], function (err, res) {
-            
+
             if (err) throw err;
 
             if (res.affectedRows === 0) {
-              console.log("ERROR! No updates made - verify item id/quantity and retry.");
+                console.log("ERROR! No updates made - verify item id/quantity and retry.");
             } else {
-              console.log(res.affectedRows + " item(s) updated!");
+                console.log(res.affectedRows + " item(s) updated!");
             }
             goAgain();
         }); //end of update query        
@@ -164,90 +165,99 @@ function addToInventory() {
 
 function addNewProduct() {
     //manager selects item to adjust
-    inquirer.prompt([
-    {
-        type: 'input',
-        message: 'Enter the new product name: ',
-        name: 'productName',
-        validate: function (value) {
-            if (value) {
-                return true;
+    inquirer.prompt([{
+            type: 'input',
+            message: 'Enter the new product name: ',
+            name: 'productName',
+            validate: function (value) {
+                if (value) {
+                    return true;
+                }
+                return 'Please enter a valid product name: ';
             }
-            return 'Please enter a valid product name: ';
-        }
-    },
-    {
-        type: 'input',
-        message: 'Enter the product department name: ',
-        name: 'departmentName',
-        validate: function (value) {
-            if (value) {
-                return true;
+        },
+        {
+            type: 'input',
+            message: 'Enter the product department name: ',
+            name: 'departmentName',
+            validate: function (value) {
+                if (value) {
+                    return true;
+                }
+                return 'Please enter a valid department name: ';
             }
-            return 'Please enter a valid department name: ';
-        }
-    },
-    {
-        type: 'input',
-        message: 'Please enter product price: ',
-        name: 'productPrice',
-        validate: function (value) {
-            if (value && isNaN(value) === false) {
-                return true;
+        },
+        {
+            type: 'input',
+            message: 'Please enter product price: ',
+            name: 'productPrice',
+            validate: function (value) {
+                if (value && isNaN(value) === false) {
+                    return true;
+                }
+                return 'Please enter a valid price: ';
             }
-            return 'Please enter a valid price: ';
-        }
-    },
-    {
-        type: 'input',
-        message: 'Please enter inventory quantity: ',
-        name: 'quantity',
-        validate: function (value) {
-            if (value && isNaN(value) === false) {
-                return true;
+        },
+        {
+            type: 'input',
+            message: 'Please enter inventory quantity: ',
+            name: 'quantity',
+            validate: function (value) {
+                if (value && isNaN(value) === false) {
+                    return true;
+                }
+                return 'Please enter a valid quantity: ';
             }
-            return 'Please enter a valid quantity: ';
         }
-    }
     ]).then(function (answers) {
 
-        var productName = answers.productName;
-        var departmentName = answers.departmentName;
-        var productPrice = parseFloat(answers.productPrice);
-        var productQuantity = parseInt(answers.quantity);
+            var productName = answers.productName;
+            var departmentName = answers.departmentName;
+            var productPrice = parseFloat(answers.productPrice);
+            var productQuantity = parseInt(answers.quantity);
 
-        var query = connection.query(
-            "INSERT INTO products SET ?", {
-                product_name: productName,
-                department_name: departmentName,
-                price: productPrice,
-                stock_quantity: productQuantity
-            },
-            function (err, res) {
+            connection.query("SELECT * FROM departments where ?", [{
+                    department_name: departmentName
+                }],
+                function (err, res) {
 
-                if (err) throw err;
+                    if (res.length === 0) {
+                        console.log("ERROR! Invalid Department Name.  Correct entry or submit supervisor request for new department.")
+                        goAgain();
+                    } else {
+                        var query = connection.query(
+                            "INSERT INTO products SET ?", {
+                                product_name: productName,
+                                department_name: departmentName,
+                                price: productPrice,
+                                stock_quantity: productQuantity
+                        },
+                        function (err, res) {
 
-                // AFFECTEDROWS = NUMBER OF ROWS INSERTED
-                console.log(res.affectedRows + " product inserted!\n");
+                            if (err) throw err;
 
-                goAgain();
+                            // AFFECTEDROWS = NUMBER OF ROWS INSERTED
+                            console.log(res.affectedRows + " product created!\n");
+
+                            goAgain();
+                        }); // ********** end of insert 
+                    }; // end of dept validation if stmt
+                }); // ********** end of select to validate dept
+            }); // ************* end of prompt
+    } //************ end of add new product */
+
+
+    function goAgain() {
+
+        inquirer.prompt([{
+            type: 'confirm',
+            message: 'Continue Managing Products?',
+            name: 'confirm',
+        }]).then(function (answers) {
+            if (answers.confirm) {
+                showManagerFront();
+            } else {
+                connection.end();
             }
-        );  
-    }); // ************* end of prompt
-} //************ end of add new product */
-
-
-function goAgain() {
-
-    inquirer.prompt([{
-        type: 'confirm',
-        message: 'Continue Managing Products?',
-        name: 'confirm',
-    }]).then(function (answers) {
-        if (answers.confirm) {
-            showManagerFront();
-        } else {
-            connection.end();
-        }
-    });
-};
+        });
+    };

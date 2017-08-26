@@ -103,8 +103,7 @@ function processOrder(productID, customerQuantity) {
 
         totalDue = customerQuantity * itemPrice;
         console.log("Congratulations on your purchase!  Total Due: " + formatter.format(totalDue));
-       
-        goAgain();
+        updateProductSales(productID, totalDue);
       }); //end of update query
 
     } else {
@@ -114,6 +113,16 @@ function processOrder(productID, customerQuantity) {
     }
   });
 }
+
+function updateProductSales(productID, totalSales) {
+
+  var query = "UPDATE products SET ? WHERE ?";
+  connection.query(query, [{product_sales:totalSales}, {item_id:productID}], function (err, res) {
+
+    if (err) throw err;
+    goAgain();
+  }); //end of update query
+} //**********End of update product sales */
 
 function goAgain() {
 
