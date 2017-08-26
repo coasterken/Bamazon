@@ -1,12 +1,13 @@
--- Drops the favorite_db if it exists currently --
-DROP DATABASE IF EXISTS bamazon;
+-- Drops db if it exists currently --
+-- DROP DATABASE IF EXISTS bamazon;
+
 -- Creates the "favorite_db" database --
 CREATE DATABASE bamazon;
 
--- Make it so all of the following code will affect favorite_db --
+-- Make it so all of the following code will affect db --
 use bamazon;
 
--- Creates the table "favorite_foods" within favorite_db --
+-- Creates the table within db --
 CREATE TABLE products(
   item_id integer(10) not null AUTO_INCREMENT,
   product_name VARCHAR(100) not null,
@@ -26,7 +27,7 @@ select * from products;
 -- -----------------------------------------------------------------------
 
 use bamazon;
--- Creates the table "favorite_foods" within favorite_db --
+-- Creates the table within db --
 CREATE TABLE departments(
   department_id integer(10) not null AUTO_INCREMENT,
   department_name VARCHAR(100) not null,
