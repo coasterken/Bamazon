@@ -79,7 +79,8 @@ function showAllProducts() {
         "product_name AS 'Product', " +
         "department_name AS 'Department', " +
         "concat('$', format(price, 2)) AS 'Price', " +
-        "stock_quantity AS 'Stock Quantity' " +
+        "stock_quantity AS 'Stock Quantity', " +
+        "concat('$', format(product_sales, 2)) AS 'Product Sales' " +                 
         "FROM products",
         function (err, res) {
 
@@ -100,7 +101,8 @@ function showLowInventory() {
         "product_name AS 'Product', " +
         "department_name AS 'Department', " +
         "concat('$', format(price, 2)) AS 'Price', " +
-        "stock_quantity AS 'Stock Quantity' " +
+        "stock_quantity AS 'Stock Quantity', " +
+        "concat('$', format(product_sales, 2)) AS 'Product Sales' " + 
         "FROM products where stock_quantity <= ?", [lowInventoryCount],
         function (err, res) {
 
@@ -237,7 +239,7 @@ function addNewProduct() {
                             if (err) throw err;
 
                             // AFFECTEDROWS = NUMBER OF ROWS INSERTED
-                            console.log(res.affectedRows + " product created!\n");
+                            console.log(res.affectedRows + " " + productName +  " product created!\n");
 
                             goAgain();
                         }); // ********** end of insert 
