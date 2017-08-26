@@ -44,7 +44,7 @@ Bamazon is a CLI based shopping app that offers options for customer shopping, p
   * View product sales by department
   * Add new departments
 
-Workflow:  https://github.com/coasterken/Bamazon/blob/master/workflows/supervisorwf.doc
+Workflow:  https://docs.google.com/document/d/1uB-ZRKdFCEvHgbDX37S9cmu3Y6-2wdI76mZgcO6xMjQ/edit?usp=sharing
 
 #### Product Manager
 * Functions
