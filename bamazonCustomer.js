@@ -36,7 +36,9 @@ connection.connect(function (err) {
 //displays items and prompts for shopping selection
 function showStoreFront() {
 
-  connection.query("SELECT item_id AS 'Item ID', product_name AS 'Product', concat('$', format(price, 2)) AS 'Price' FROM products", function (err, res) {
+  connection.query("SELECT item_id AS 'Item ID', product_name AS 'Product', concat('$', format(price, 2)) AS 'Price' " 
+                 + "FROM products WHERE stock_quantity > 0", 
+    function (err, res) {
     if (err) throw err;
     //loop through query results and display to the user
     console.log("---------------- Bamazon Products-------------------\n");
