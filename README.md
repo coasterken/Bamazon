@@ -44,6 +44,8 @@ Bamazon is a CLI based shopping app that offers options for customer shopping, p
   * View product sales by department
   * Add new departments
 
+Workflow:  https://docs.google.com/document/d/1uB-ZRKdFCEvHgbDX37S9cmu3Y6-2wdI76mZgcO6xMjQ/edit?usp=sharing
+
 #### Product Manager
 * Functions
   * View products for sale
@@ -51,9 +53,13 @@ Bamazon is a CLI based shopping app that offers options for customer shopping, p
   * Add to inventory
   * Add new product
   
-#### Customer Shopping
+ Workflow:
+  
+#### Customer
 * Functions
   * Shop for products
+  
+Workflow: 
 
 
 
