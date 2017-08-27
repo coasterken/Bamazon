@@ -59,7 +59,7 @@ Workflow:  https://docs.google.com/document/d/1uB-ZRKdFCEvHgbDX37S9cmu3Y6-2wdI76
 * Functions
   * Shop for products
   
-Workflow: 
+Workflow: https://docs.google.com/document/d/1kT2lP4a5KdPTTSoxCePVaXUsCO2wjJowyXizxd8jZ7o/edit?usp=sharing
 
 
 
