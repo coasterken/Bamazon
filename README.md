@@ -53,13 +53,13 @@ Workflow:  https://docs.google.com/document/d/1uB-ZRKdFCEvHgbDX37S9cmu3Y6-2wdI76
   * Add to inventory
   * Add new product
   
- Workflow:
+ Workflow: https://docs.google.com/document/d/1G4c1lJ0ftVca9XrX0esz8UhmOGZLAZhNidbjHe1NkUw/edit?usp=sharing
   
 #### Customer
 * Functions
   * Shop for products
   
-Workflow: 
+Workflow: https://docs.google.com/document/d/1kT2lP4a5KdPTTSoxCePVaXUsCO2wjJowyXizxd8jZ7o/edit?usp=sharing
 
 
 
